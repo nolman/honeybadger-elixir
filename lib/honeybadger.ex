@@ -88,6 +88,8 @@ defmodule Honeybadger do
     function yourself.
   """
   def start(_type, _opts) do
+    import Supervisor.Spec
+
     app_config = Application.get_all_env(:honeybadger)
     config = Keyword.merge(default_config, app_config)
 
@@ -98,6 +100,8 @@ defmodule Honeybadger do
     if config[:use_logger] do
       :error_logger.add_report_handler(Honeybadger.Logger)
     end
+
+    {:ok, _} = Honeybadger.StatSupervisor.start_link
 
     {Application.ensure_started(:httpoison), self}
   end
