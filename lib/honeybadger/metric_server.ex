@@ -10,8 +10,8 @@ defmodule Honeybadger.MetricServer do
 
   ## API
 
-  def increment do
-    GenServer.cast(__MODULE__, :increment)
+  def timing(time) do
+    GenServer.cast(__MODULE__, {:timing, time})
   end
 
   def flush do
@@ -22,15 +22,15 @@ defmodule Honeybadger.MetricServer do
 
   def init([]) do
     Process.send_after(self, @raw_flush, @one_minute)
-    {:ok, 0}
+    {:ok, []}
   end
 
-  def handle_cast(:increment, count) do
-    {:noreply, count + 1}
+  def handle_cast({:timing, time}, state) do
+    {:noreply, [time | state]}
   end
 
   def handle_cast(:flush, count) do
     Process.send_after(self, @raw_flush, @one_minute)
-    {:noreply, 0}
+    {:noreply, []}
   end
 end
