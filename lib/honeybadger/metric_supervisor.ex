@@ -1,4 +1,4 @@
-defmodule Honeybadger.StatSupervisor do
+defmodule Honeybadger.MetricSupervisor do
   use Supervisor
 
   def start_link do
@@ -6,7 +6,7 @@ defmodule Honeybadger.StatSupervisor do
   end
 
   def init([]) do
-    child = worker(Honeybadger.StatServer, [])
+    child = worker(Honeybadger.MetricServer, [])
     supervise([child], strategy: :one_for_one)
   end
 
