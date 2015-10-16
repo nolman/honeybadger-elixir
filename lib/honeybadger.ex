@@ -101,7 +101,7 @@ defmodule Honeybadger do
       :error_logger.add_report_handler(Honeybadger.Logger)
     end
 
-    {:ok, _} = Honeybadger.MetricSupervisor.start_link
+    {:ok, _} = Honeybadger.Metrics.Supervisor.start_link
 
     {Application.ensure_started(:httpoison), self}
   end

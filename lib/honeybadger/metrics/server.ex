@@ -1,4 +1,4 @@
-defmodule Honeybadger.MetricServer do
+defmodule Honeybadger.Metrics.Server do
   use GenServer
 
   @one_minute 60_000
