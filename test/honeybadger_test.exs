@@ -26,7 +26,7 @@ defmodule HoneybadgerTest do
     end
 
     Sample.notify
-    :timer.sleep 50
+    :timer.sleep 250
 
     url = Application.get_env(:honeybadger, :origin) <> "/v1/notices"
     headers = [{"Accept", "application/json"},
