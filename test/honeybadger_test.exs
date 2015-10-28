@@ -34,32 +34,32 @@ defmodule HoneybadgerTest do
                {"X-API-Key", "at3stk3y"}]
 
     payload = %Notice{
-			error: %{
-				backtrace: [
-					%{context: "all", file: "lib/process.ex", method: "info", number: 384},
-					%{context: "all", file: "lib/honeybadger.ex", method: "do_notify", number: 133},
-					%{context: "all", file: "lib/task/supervised.ex", method: "do_apply", number: 74},
-					%{context: "all", file: "proc_lib.erl", method: "init_p_do_apply", number: 240}
+      error: %{
+        backtrace: [
+          %{context: "all", file: "lib/process.ex", method: "info", number: 384},
+          %{context: "all", file: "lib/honeybadger.ex", method: "do_notify", number: 133},
+          %{context: "all", file: "lib/task/supervised.ex", method: "do_apply", number: 74},
+          %{context: "all", file: "proc_lib.erl", method: "init_p_do_apply", number: 240}
 				], 
-				class: "RuntimeError",
-				message: "runtime error",
-				tags: []},
- 			notifier: %{
-				name: "Honeybadger Elixir Notifier",
-				url: "https://github.com/honeybadger-io/honeybadger-elixir",
-				version: "0.3.0"
-			},
-			request: %{
-				context: %{
-					foo: "Bar"
-				}
-			},
-			server: %{
-				environment_name: :test, 
-				hostname: "rb-2",
-				project_root: "/Users/rb/code/honeybadger"
-			}
-		}
+        class: "RuntimeError",
+        message: "runtime error",
+        tags: []},
+      notifier: %{
+        name: "Honeybadger Elixir Notifier",
+        url: "https://github.com/honeybadger-io/honeybadger-elixir",
+        version: "0.3.0"
+      },
+      request: %{
+        context: %{
+          foo: "Bar"
+        }
+      },
+      server: %{
+        environment_name: :test, 
+        hostname: "rb-2",
+        project_root: "/Users/rb/code/honeybadger"
+      }
+    }
 
     assert :meck.called(HTTP, :post, [url, Poison.encode!(payload), headers])
   after
